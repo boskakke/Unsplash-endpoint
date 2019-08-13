@@ -1,7 +1,6 @@
 
 const request = require('request')
 const token = process.env.UNSPLASH_TOKEN
-// const token = '9b9603c98307ae7b84fd17200a862dd8f80c4bc3f84281bd3990623c9d3a3c83'
 
 const unsplash = (search, callback) => {
 	const url = 'https://api.unsplash.com/search/photos?query=' + encodeURIComponent(search) + '&client_id='+ token + '&per_page=5&order_by=popular'
