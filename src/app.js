@@ -22,7 +22,13 @@ hbs.registerPartials(partialsPath)
 
 
 // Setup static directory to serve
-app.use(express.static(publicDirectoryPath))
+//app.use(express.static(publicDirectoryPath))
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('',(req, res) => {
     res.render('index', {
@@ -33,7 +39,7 @@ app.get('',(req, res) => {
 
 app.get('/unsplash', (req, res) => {
 
-	unsplash('Denmark,sweden', (error, data) => {
+	unsplash('Food,denmark', (error, data) => {
 		console.log('error: ' + error)
 		res.send(data)
 	})
@@ -43,3 +49,6 @@ app.get('/unsplash', (req, res) => {
 app.listen(port, () => {
     console.log('Server is up on port ' + port + '.')
 })
+
+
+
