@@ -39,9 +39,14 @@ app.get('',(req, res) => {
 
 app.get('/unsplash', (req, res) => {
 
-	unsplash('Food,denmark', (error, data) => {
-		console.log('error: ' + error)
-		res.send(data)
+  if(!req.query.terms) {
+      return res.send( {
+          error: 'You must provide search terms!'
+      })
+  }
+
+	unsplash(req.query.terms, req.query.orientation,  (error, data) => {
+    res.send(data)
 	})
 
 })
@@ -49,6 +54,3 @@ app.get('/unsplash', (req, res) => {
 app.listen(port, () => {
     console.log('Server is up on port ' + port + '.')
 })
-
-
-

@@ -2,8 +2,14 @@
 const request = require('request')
 const token = process.env.UNSPLASH_TOKEN
 
-const unsplash = (search, callback) => {
-	const url = 'https://api.unsplash.com/search/photos?query=' + encodeURIComponent(search) + '&client_id='+ token + '&per_page=100&order_by=popular'
+const unsplash = (terms, orientation, callback) => {
+	const encodedSearchTerms = encodeURIComponent(terms)
+	
+	let url = 'https://api.unsplash.com/search/photos?query=' + encodedSearchTerms + '&client_id='+ token + '&per_page=100&order_by=popular'
+
+	if(orientation) {
+		url += '&orientation=' + orientation
+	}
 
 	request({ url: url, json: true }, (error, response) => {
 		if (error) {
